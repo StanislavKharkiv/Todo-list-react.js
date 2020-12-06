@@ -1,4 +1,4 @@
-import { ADD_TASK } from './constants';
+import { ADD_TASK, REMOVE_TASK } from './constants';
 
 const initialState = {
 	tasks: [
@@ -15,6 +15,8 @@ export function rootReducer(state = initialState, action) {
 	switch (action.type) {
 		case ADD_TASK : 
 			return { ...state, tasks: state.tasks.concat([action.payload]) };
+		case REMOVE_TASK :
+			return { ...state, tasks: state.tasks.filter((el) => el.id !== +action.payload) }
 		default: 
 			return state;
 	}
