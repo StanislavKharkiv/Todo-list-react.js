@@ -1,0 +1,7 @@
+.new_todo_wrap {
+	max-width: 600px;
+	margin: auto;
+	box-shadow: 0 0 10px -1px rgb(110, 110, 110);
+	border-radius: 4px;
+	padding: 40px;
+}
