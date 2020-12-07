@@ -67,7 +67,7 @@ const NewTodo = () => {
 							name="description"
 							fullWidth
 						/>
-						<Button variant="outlined" onClick={newTask} startIcon={<PostAddIcon />}>add</Button>
+						<Button variant="outlined" onClick={newTask} startIcon={<PostAddIcon />} size="large">add</Button>
 					</form>
 				</Paper>
 				</Grid>
