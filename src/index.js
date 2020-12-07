@@ -7,7 +7,6 @@ import App from './components/App';
 
 const store = createStore(rootReducer);
 
-console.log(store.getState())
 ReactDOM.render(
 	<Provider store={store}>
 		<React.StrictMode>

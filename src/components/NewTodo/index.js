@@ -33,10 +33,9 @@ const NewTodo = () => {
 
 	const changeInput = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
-		console.log(form);
 	}
 	const newTask = () => {
-		dispatch(addTask({ id: Date.now(), name: form.name, date: form.date, description: form.description }));
+		dispatch(addTask({ ...form, id: Date.now(), isComplete: false }));
 	}
 	return (
 		<div>
