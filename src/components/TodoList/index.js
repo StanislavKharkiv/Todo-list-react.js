@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { removeTask, doneTask } from '../../store/actions'
+import { removeTask, doneTask } from '../../actions/actions'
 import { useSelector, useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -42,7 +42,6 @@ const TodoList = () => {
 	}
 	const handleDoneTask = (e) => dispatch(doneTask(e.currentTarget.dataset.id))
 
-	console.log(tasks)
 	return (
 		<ul className="task_list" >
 			{tasks.map((el) => (
@@ -53,8 +52,8 @@ const TodoList = () => {
 						<div>{el.description}</div>
 					</CardContent>
 					<CardActions className={classes.cardActions}>
-			<Button onClick={handleDoneTask} size="small" data-id={el.id} className={el.isComplete ? null : classes.button} variant="outlined" startIcon={el.isComplete ? <Block/> : <Done />}>{el.isComplete ? 'not Done' : 'done'}</Button>
-						<Button color="primary" data-id={el.id}  size="small" variant="outlined" startIcon={<EditOutlined />}>Edit</Button>
+						<Button onClick={handleDoneTask} size="small" data-id={el.id} className={el.isComplete ? null : classes.button} variant="outlined" startIcon={el.isComplete ? <Block /> : <Done />}>{el.isComplete ? 'not Done' : 'done'}</Button>
+						<Button color="primary" data-id={el.id} size="small" variant="outlined" startIcon={<EditOutlined />}>Edit</Button>
 						<Button onClick={handleDeleteTask} data-id={el.id} variant="outlined" color="secondary" size="small" startIcon={<Delete />}>Delete</Button>
 					</CardActions>
 				</Card>

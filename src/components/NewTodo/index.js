@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import PostAddIcon from '@material-ui/icons/PostAdd';
-import { addTask } from '../../store/actions';
+import { addTask } from '../../actions/actions';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import './newTodo.css'

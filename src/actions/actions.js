@@ -1,4 +1,4 @@
-import { ADD_TASK, REMOVE_TASK, DONE_TASK } from './constants';
+import { ADD_TASK, REMOVE_TASK, DONE_TASK } from '../constants';
 
 export function addTask(task) {
 	return {
