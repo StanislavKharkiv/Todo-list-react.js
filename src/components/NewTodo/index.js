@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -30,17 +31,19 @@ const NewTodo = () => {
 	const [form, setForm] = useState({});
 	const classes = useStyles();
 	const dispatch = useDispatch();
+	const history = useHistory();
 
 	const changeInput = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	}
 	const newTask = () => {
 		dispatch(addTask({ ...form, id: Date.now(), isComplete: false }));
+		history.push('/');
 	}
 	return (
 		<div>
 			<Grid container justify="center">
-				<Grid item xl={12} sm={10} md={6} lg={4} xl={4}>
+				<Grid item sm={10} md={6} lg={4} xl={4}>
 				<Paper className={classes.paper}>
 					<Typography variant="h4" component="h2" gutterBottom className={classes.header} >New Task</Typography>
 					<form autoComplete="off" className="new_task_form">
