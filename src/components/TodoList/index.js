@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import clsx from 'clsx';
 import { removeTask, doneTask } from '../../actions/actions'
 import { useSelector, useDispatch } from 'react-redux';
@@ -37,10 +37,19 @@ const TodoList = () => {
 	const classes = useStyles();
 	const tasks = useSelector(state => state.tasks);
 	const dispatch = useDispatch();
+	const history = useHistory();
+
 
 	const handleDeleteTask = (e) => {
 		console.log(e.currentTarget.dataset.id)
 		dispatch(removeTask(e.currentTarget.dataset.id));
+	}
+	const handleEdit = (e) => {
+		history.push({
+			pathname: '/add-task',
+			search: `?edit`,
+			state: { id: e.currentTarget.dataset.id }
+		});
 	}
 	const handleDoneTask = (e) => dispatch(doneTask(e.currentTarget.dataset.id))
 
@@ -56,13 +65,13 @@ const TodoList = () => {
 						</CardContent>
 						<CardActions className={classes.cardActions}>
 							<Button onClick={handleDoneTask} size="small" data-id={el.id} className={el.isComplete ? null : classes.button} variant="outlined" startIcon={el.isComplete ? <Block /> : <Done />}>{el.isComplete ? 'not Done' : 'done'}</Button>
-							<Button color="primary" data-id={el.id} size="small" variant="outlined" startIcon={<EditOutlined />}>Edit</Button>
+							<Button onClick={handleEdit} color="primary" data-id={el.id} size="small" variant="outlined" startIcon={<EditOutlined />}>Edit</Button>
 							<Button onClick={handleDeleteTask} data-id={el.id} variant="outlined" color="secondary" size="small" startIcon={<Delete />}>Delete</Button>
 						</CardActions>
 					</Card>
 				))}
 			</ul>
-			<Link to="new-task" >
+			<Link to="add-task" >
 				<IconButton size="medium" color="primary" aria-label="add task">
 					<PostAddSharp />
 				</IconButton>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import TodoList from '../TodoList';
-import NewTodo from '../NewTodo';
+import AddTodo from '../AddTodo';
 import './app.css';
 
 function App() {
@@ -11,8 +11,8 @@ function App() {
 				<Route exact path="/">
 					<TodoList />
 				</Route>
-				<Route path="/new-task">
-					<NewTodo />
+				<Route path="/add-task">
+					<AddTodo />
 				</Route>
 			</Switch>
     </Router>

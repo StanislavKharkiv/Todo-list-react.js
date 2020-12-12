@@ -5,3 +5,7 @@
 	border-radius: 4px;
 	padding: 40px;
 }
+.buttons-wrapper {
+	display: flex;
+	justify-content: space-between;
+}

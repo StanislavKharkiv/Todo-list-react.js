@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
-import PostAddIcon from '@material-ui/icons/PostAdd';
-import { addTask } from '../../actions/actions';
+import { PostAdd, CancelPresentation } from '@material-ui/icons';
+import { addTask, editTask } from '../../actions/actions';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import './newTodo.css'
@@ -27,11 +28,14 @@ const useStyles = makeStyles({
   },
 });
 
-const NewTodo = () => {
-	const [form, setForm] = useState({});
+const AddTodo = () => {
+	const [form, setForm] = useState({name: '', date: '', description: ''});
+	const [isEdit, setEdit] = useState(false)
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const history = useHistory();
+	const tasks = useSelector(state => state.tasks)
+	const { state } = useLocation();
 
 	const changeInput = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
@@ -40,6 +44,20 @@ const NewTodo = () => {
 		dispatch(addTask({ ...form, id: Date.now(), isComplete: false }));
 		history.push('/');
 	}
+
+	const fixTask = () => {
+		dispatch(editTask({ ...form }));
+		history.push('/');
+	}
+
+	useEffect(() => {
+		if (!!state) {
+			const task = tasks.filter(task => task.id === +state.id);
+			setEdit(true);
+			setForm({...form, ...task[0]});
+		}
+	}, [state])
+
 	return (
 		<div>
 			<Grid container justify="center">
@@ -47,13 +65,14 @@ const NewTodo = () => {
 				<Paper className={classes.paper}>
 					<Typography variant="h4" component="h2" gutterBottom className={classes.header} >New Task</Typography>
 					<form autoComplete="off" className="new_task_form">
-						<TextField className={classes.input} onChange={changeInput} label="Task name" name="name" fullWidth />
+						<TextField className={classes.input} onChange={changeInput} label="Task name" name="name" value={form.name} fullWidth />
 						<TextField
 							className={classes.input}
 							onChange={changeInput}
 							label="End of task"
 							type="date"
 							fullWidth
+							value={form.date}
 							InputLabelProps={{
 								shrink: true,
 							}}
@@ -67,9 +86,13 @@ const NewTodo = () => {
 							rows={3}
 							variant="outlined"
 							name="description"
+							value={form.description}
 							fullWidth
 						/>
-						<Button variant="outlined" onClick={newTask} startIcon={<PostAddIcon />} size="large">add</Button>
+						<div className="buttons-wrapper">
+							<Button variant="outlined" color="secondary" onClick={() => {history.push('/')}} startIcon={<CancelPresentation />} size="large">Close</Button>
+							<Button variant="outlined" color="primary" onClick={isEdit ? fixTask : newTask} startIcon={<PostAdd />} size="large">add</Button>
+						</div>
 					</form>
 				</Paper>
 				</Grid>
@@ -78,4 +101,4 @@ const NewTodo = () => {
 	)
 };
 
-export default NewTodo;
+export default AddTodo;
