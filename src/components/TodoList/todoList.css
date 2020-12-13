@@ -1,8 +1,9 @@
 .task_list {
 	display: flex;
 	flex-wrap: wrap;
+	margin: 40px;
 }
 .main {
-	padding: 50px;
+	margin: auto;
 	min-height: 100vh;
 }

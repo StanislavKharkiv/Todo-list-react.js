@@ -37,6 +37,13 @@ const AddTodo = () => {
 	const tasks = useSelector(state => state.tasks)
 	const { state } = useLocation();
 
+	const setAddTodoMode = (state) => {
+		if (!!state) {
+			const task = tasks.filter(task => task.id === +state.id);
+			setEdit(true);
+			setForm({...form, ...task[0]});
+		}
+	} 
 	const changeInput = (e) => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	}
@@ -50,13 +57,8 @@ const AddTodo = () => {
 		history.push('/');
 	}
 
-	useEffect(() => {
-		if (!!state) {
-			const task = tasks.filter(task => task.id === +state.id);
-			setEdit(true);
-			setForm({...form, ...task[0]});
-		}
-	}, [state])
+	// eslint-disable-next-line react-hooks/exhaustive-deps
+	useEffect(() => {setAddTodoMode(state)}, []);
 
 	return (
 		<div>
