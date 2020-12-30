@@ -1,10 +1,10 @@
 import React from 'react';
-import { removeTask, doneTask } from '../../actions/actions'
+import { removeTask, doneTask } from '../../actions/tasks';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
-import { Delete, EditOutlined, Done, Block, PostAddSharp } from '@material-ui/icons';
+import { Delete, EditOutlined, Done, Block } from '@material-ui/icons';
 import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';

@@ -1,6 +1,9 @@
 import { ADD_TASK, REMOVE_TASK, DONE_TASK, EDIT_TASK } from '../constants';
 
-const initialState = [
+let initialState;
+if (!localStorage.getItem('tasks')) {
+	console.log('local storage ampty')
+	initialState = [
 		{
 			id: 1,
 			name: 'Create this app',
@@ -9,9 +12,12 @@ const initialState = [
 			isComplete: false
 		}
 	]
+} else {
+	console.log(JSON.parse(localStorage.getItem('tasks')))
+	initialState = JSON.parse(localStorage.getItem('tasks'))
+}
 
 export default function tasks(state = initialState, action) {
-	console.log(state, action)
 	switch (action.type) {
 		case ADD_TASK : 
 			return [ ...state, {...action.payload}];

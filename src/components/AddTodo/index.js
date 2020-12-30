@@ -4,10 +4,11 @@ import { useSelector } from 'react-redux';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { PostAdd, CancelPresentation } from '@material-ui/icons';
-import { addTask, editTask } from '../../actions/actions';
+import { addTask, editTask } from '../../actions/tasks';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import './newTodo.css'
@@ -35,6 +36,7 @@ const AddTodo = () => {
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const tasks = useSelector(state => state.tasks)
+	const appStatus = useSelector(state => state.status)
 	const { state } = useLocation();
 
 	const setAddTodoMode = (state) => {
@@ -48,8 +50,7 @@ const AddTodo = () => {
 		setForm({ ...form, [e.target.name]: e.target.value });
 	}
 	const newTask = () => {
-		dispatch(addTask({ ...form, id: Date.now(), isComplete: false }));
-		history.push('/');
+			dispatch(addTask({ ...form, id: Date.now(), isComplete: false }, history));
 	}
 
 	const fixTask = () => {
@@ -62,6 +63,7 @@ const AddTodo = () => {
 
 	return (
 		<div>
+			{ appStatus.isLoad ? <div className="loader"><CircularProgress size={60} /></div> : null }
 			<Grid container justify="center">
 				<Grid item sm={10} md={6} lg={4} xl={4}>
 				<Paper className={classes.paper}>

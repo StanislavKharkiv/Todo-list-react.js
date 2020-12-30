@@ -9,8 +9,9 @@ import Header from '../Header'
 import './todoList.css';
 
 const TodoList = () => {
-	const tasks = useSelector(state => state.tasks);
-
+	const state = useSelector(state => state);
+	const {tasks} = state;
+	console.log(state)
 	return (
 		<>
 		<Header />
